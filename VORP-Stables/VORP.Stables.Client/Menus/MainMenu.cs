@@ -6,7 +6,7 @@ namespace VORP.Stables.Client.Menus
 {
     class MainMenu
     {
-        private static void SetupMenu(Menu mainMenu, string CharJob)
+        private static void SetupMenu(Menu mainMenu, dynamic user, string charJob)
         {
             MenuController.AddMenu(mainMenu);
 
@@ -14,13 +14,13 @@ namespace VORP.Stables.Client.Menus
             MenuController.MenuToggleKey = (Control)0;
 
             #region Buy Horses Menu
-            if (CharJob != null)
+            if (charJob != null)
             {
-                if ((CharJob == Convert.ToString(GetConfig.Config["JobForHorseDealer"]) || CharJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"]))
+                if ((charJob == Convert.ToString(GetConfig.Config["JobForHorseDealer"]) || charJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"]))
                     && !Convert.ToBoolean(GetConfig.Config["DisableBuyOptions"]))
                 {
-                    int MenuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
-                    switch (MenuItemDesign)
+                    int menuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
+                    switch (menuItemDesign)
                     {
                         case 0:
                             AddSubMenu(mainMenu, BuyHorsesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
@@ -35,8 +35,8 @@ namespace VORP.Stables.Client.Menus
 
             else
             {
-                int MenuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
-                switch (MenuItemDesign)
+                int menuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
+                switch (menuItemDesign)
                 {
                     case 0:
                         AddSubMenu(mainMenu, BuyHorsesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
@@ -55,9 +55,9 @@ namespace VORP.Stables.Client.Menus
 
             #region Buy Carriages Menu
 
-            if (CharJob != null)
+            if (charJob != null)
             {
-                if ((CharJob == Convert.ToString(GetConfig.Config["JobForCarriagesDealer"]) || CharJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"])) 
+                if ((charJob == Convert.ToString(GetConfig.Config["JobForCarriagesDealer"]) || charJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"])) 
                     && !Convert.ToBoolean(GetConfig.Config["DisableBuyOptions"]))
                 {
                     AddSubMenu(mainMenu, BuyCarriagesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyCarts"], GetConfig.Langs["SubTitleMenuBuyCarts"]);
@@ -73,7 +73,48 @@ namespace VORP.Stables.Client.Menus
             #region My Carriages Menu
             AddSubMenu(mainMenu, MyCarriagesMenu.GetMenu(), GetConfig.Langs["TitleMenuCarts"], GetConfig.Langs["SubTitleMenuCarts"]);
             #endregion
+            
+            #region Stable wild horse
+            if (charJob != null)
+            {
+                if (charJob == Convert.ToString(GetConfig.Config["JobForHorseDealer"]) ||
+                    charJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"]))
+                {
+                    var stableMenuItem = new MenuItem(GetConfig.Langs["TitleStableWildHorse"], GetConfig.Langs["DescStableWildHorse"])
+                    {
+                        RightIcon = MenuItem.Icon.TICK
+                    };
+                    
+                    mainMenu.AddMenuItem(stableMenuItem);
+                    MenuController.BindMenuItem(mainMenu, mainMenu, stableMenuItem);
+                }
+            }
+            
+            else
+            {
+                var stableMenuItem = new MenuItem(GetConfig.Langs["TitleStableWildHorse"], GetConfig.Langs["DescStableWildHorse"])
+                {
+                    RightIcon = MenuItem.Icon.TICK
+                };
+                    
+                mainMenu.AddMenuItem(stableMenuItem);
+                MenuController.BindMenuItem(mainMenu, mainMenu, stableMenuItem);
+            }
+            #endregion
 
+            #region OnItemSelect
+            mainMenu.OnItemSelect += (_menu, _menuItem, _index) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_menuItem}, {_index}]");
+                if (_index == 4)
+                {
+                    Debug.WriteLine("CALL StableWildHorse.cs");
+                    //if player has a wild horse
+                    //StableWildHorse
+                }
+            };
+            #endregion
+            
             #region OnMenuOpen
             mainMenu.OnMenuOpen += (_menu) =>
             {
@@ -103,11 +144,11 @@ namespace VORP.Stables.Client.Menus
             MenuController.BindMenuItem(mainMenu, GetMenu, subMenuBuyHorses);
         }
 
-        public static Menu GetMenu(string CharJob)
+        public static Menu GetMenu(dynamic user, string CharJob)
         {
             Menu mainMenu = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
 
-            SetupMenu(mainMenu, CharJob);
+            SetupMenu(mainMenu, user, CharJob);
             return mainMenu;
         }
     }

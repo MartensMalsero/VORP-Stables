@@ -67,6 +67,7 @@
     <Compile Include="Menus\MainMenu.cs" />
     <Compile Include="Menus\MyCarriagesMenu.cs" />
     <Compile Include="Menus\MyHorsesMenu.cs" />
+    <Compile Include="Menus\StableWildHorse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StablesShop.cs" />
   </ItemGroup>

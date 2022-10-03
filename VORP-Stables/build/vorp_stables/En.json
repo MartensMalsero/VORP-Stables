@@ -20,6 +20,9 @@
 
     "TitleMenuCarts": "Carriage Management",
     "SubTitleMenuCarts": "Manage your carriages",
+    
+    "TitleStableWildHorse": "Stable Wild Horse",
+    "DescStableWildHorse": "",
 
     "subTitleConfirmBuy": "The price of {0} is {1}$",
     "ConfirmBuyButton": "Buy for {0}$",

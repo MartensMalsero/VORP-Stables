@@ -882,11 +882,12 @@ namespace VORP.Stables.Server
 
         private void GetCharJob([FromSource] Player source)
         {
-            int _source = int.Parse(source.Handle);
+            var _source = int.Parse(source.Handle);
 
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
-                source.TriggerEvent("vorp_stables:OpenMenu", user.job);
+                Debug.WriteLine($"{user}");
+                source.TriggerEvent("vorp_stables:OpenMenu", user, user.job);
             }));
         }
     }
