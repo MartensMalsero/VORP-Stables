@@ -110,7 +110,7 @@ namespace VORP.Stables.Client.Menus
                 {
                     Debug.WriteLine("CALL StableWildHorse.cs");
                     //if player has a wild horse
-                    //StableWildHorse
+                    StableWildHorse.SaveWildHorseInStable(mainMenu.MenuTitle, user);
                 }
             };
             #endregion
