@@ -886,8 +886,7 @@ namespace VORP.Stables.Server
 
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
-                Debug.WriteLine($"{user}");
-                source.TriggerEvent("vorp_stables:OpenMenu", user, user.job);
+                source.TriggerEvent("vorp_stables:OpenMenu", user.job);
             }));
         }
     }

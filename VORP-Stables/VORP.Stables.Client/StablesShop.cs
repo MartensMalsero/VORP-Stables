@@ -316,11 +316,9 @@ namespace VORP.Stables.Client
                     }
                     else
                     {
-                        if (!horseName.Equals("close"))
-                        {
-                            TriggerServerEvent("vorpstables:BuyNewHorse", horseName, tittle, horsemodel, horsecost);
-                            HorseManagment.isLoading = true;
-                        }
+                        if (horseName.Equals("close")) return;
+                        TriggerServerEvent("vorpstables:BuyNewHorse", horseName, tittle, horsemodel, horsecost);
+                        HorseManagment.isLoading = true;
                     }
                 }));
             }

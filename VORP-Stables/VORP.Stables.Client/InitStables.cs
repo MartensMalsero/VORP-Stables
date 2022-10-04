@@ -108,8 +108,7 @@ namespace VORP.Stables.Client
                         
                         else
                         {
-                            //ToDo user = null testen!
-                            Menus.MainMenu.GetMenu(API.GetPlayerIndex(), null).OpenMenu();
+                            Menus.MainMenu.GetMenu(null).OpenMenu();
                         }
 
                         await Delay(1000);

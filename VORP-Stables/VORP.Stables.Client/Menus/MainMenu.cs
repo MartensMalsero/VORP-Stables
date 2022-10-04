@@ -6,7 +6,7 @@ namespace VORP.Stables.Client.Menus
 {
     class MainMenu
     {
-        private static void SetupMenu(Menu mainMenu, dynamic user, string charJob)
+        private static void SetupMenu(Menu mainMenu, string charJob)
         {
             MenuController.AddMenu(mainMenu);
 
@@ -108,9 +108,9 @@ namespace VORP.Stables.Client.Menus
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_menuItem}, {_index}]");
                 if (_index == 4)
                 {
-                    Debug.WriteLine("CALL StableWildHorse.cs");
+                    //Debug.WriteLine("CALL StableWildHorse.cs");
                     //if player has a wild horse
-                    StableWildHorse.SaveWildHorseInStable(mainMenu.MenuTitle, user);
+                    StableWildHorse.SaveWildHorseInStable(mainMenu.MenuTitle);
                 }
             };
             #endregion
@@ -144,11 +144,11 @@ namespace VORP.Stables.Client.Menus
             MenuController.BindMenuItem(mainMenu, GetMenu, subMenuBuyHorses);
         }
 
-        public static Menu GetMenu(dynamic user, string CharJob)
+        public static Menu GetMenu(string CharJob)
         {
             Menu mainMenu = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
 
-            SetupMenu(mainMenu, user, CharJob);
+            SetupMenu(mainMenu, CharJob);
             return mainMenu;
         }
     }
