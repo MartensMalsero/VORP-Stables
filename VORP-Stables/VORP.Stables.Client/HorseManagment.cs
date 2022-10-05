@@ -613,33 +613,6 @@ namespace VORP.Stables.Client
 
         }
 
-        public static async Task DeleteHorseTest(int horsePed)
-        {
-            var timeout = 0;
-            API.NetworkRequestControlOfEntity(horsePed);
-            API.SetEntityAsMissionEntity(horsePed, true, true);
-            
-            while (API.DoesEntityExist(horsePed) && timeout < 10)
-            {
-                API.DeletePed(ref horsePed);
-                API.DeleteEntity(ref horsePed);
-
-                if (!API.DoesEntityExist(horsePed))
-                {
-                    Debug.WriteLine("Horse despawn");
-                }
-
-                await Delay(500);
-
-                timeout += 1;
-
-                if (API.DoesEntityExist(horsePed) && timeout == 9)
-                {
-                    Debug.WriteLine("Horse can't despawn");
-                }
-            }
-        }
-
         private float getHorseDistance(int horsePed)
         {
             Vector3 playerCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);

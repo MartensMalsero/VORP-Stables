@@ -67,7 +67,7 @@ namespace VORP.Stables.Client.Menus
                     {
                         Icon = MenuItem.Icon.TICK;
                     }
-
+                    
                     MenuItem buttonMyHorses = new MenuItem(mh.getHorseName(), GetConfig.Langs[mh.getHorseModel()])
                     {
 
