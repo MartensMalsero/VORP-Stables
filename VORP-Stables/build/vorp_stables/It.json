@@ -21,6 +21,12 @@
   "TitleMenuCarts": "Gestione carrozza",
   "SubTitleMenuCarts": "Gestisci le tue carrozze",
 
+  "TitleStableWildHorse": "Cavallo selvaggio stabile",
+  "DescStableWildHorse": "",
+  "ButtonNameStableWildHorse": "Portate il vostro cavallo",
+  "InputPlaceHolderStableWildHorse": "Il nome del vostro cavallo",
+  "StableIsFullWildHorse": "La scuderia è piena, non è possibile far entrare il cavallo finché non si libera un posto",
+
   "subTitleConfirmBuy": "Il prezzo per {0} ammonta a {1}$",
   "ConfirmBuyButton": "Acquista per {0}$",
   "ConfirmBuyButtonDesc": "Acquista cavallo",

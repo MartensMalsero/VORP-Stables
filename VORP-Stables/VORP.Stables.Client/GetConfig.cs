@@ -26,7 +26,6 @@ namespace VORP.Stables.Client
 
         private void LoadDefaultConfig(string dc, ExpandoObject dl)
         {
-
             Config = JObject.Parse(dc);
 
             foreach (var l in dl)

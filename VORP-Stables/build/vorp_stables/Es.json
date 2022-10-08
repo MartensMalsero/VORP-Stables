@@ -22,6 +22,12 @@
     "TitleMenuCarts": "Gestionar Carros",
     "SubTitleMenuCarts": "Gestiona tus carros",
 
+    "TitleStableWildHorse": "Caballo salvaje estable",
+    "DescStableWildHorse": "",
+    "ButtonNameStableWildHorse": "Traiga su caballo",
+    "InputPlaceHolderStableWildHorse": "El nombre de su caballo",
+    "StableIsFullWildHorse": "Su establo está lleno, no puede traer su caballo hasta que tenga un hueco libre",
+    
     "subTitleConfirmBuy": "El precio de {0} es de {1}$",
     "ConfirmBuyButton": "Comprar por {0}$",
     "ConfirmBuyButtonDesc": "Comprar el caballo",

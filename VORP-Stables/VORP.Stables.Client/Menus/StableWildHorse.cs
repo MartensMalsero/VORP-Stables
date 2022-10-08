@@ -3,20 +3,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
+using MenuAPI;
 
 namespace VORP.Stables.Client.Menus
 {
-    internal class StableWildHorse : BaseScript
+    class StableWildHorse : BaseScript
     {
-        public static StableWildHorse CreateInstance()
+        private static readonly Menu stableWildHorse = new Menu("TitleStableWildHorse",
+            "DescStableWildHorse");
+
+        private static bool _setupDone;
+        
+        private static void SetupMenu()
         {
-            return new StableWildHorse();
+            if (_setupDone) return;
+            _setupDone = true;
+
+
+            MenuController.AddMenu(stableWildHorse);
+
+            MenuController.EnableMenuToggleKeyOnController = false;
+            MenuController.MenuToggleKey = (Control) 0;
+
+            stableWildHorse.OnMenuOpen += (menu) =>
+            {
+                menu.CloseMenu();
+                SaveWildHorseInStable(menu.MenuTitle);
+            };
         }
 
-        public static async void SaveWildHorseInStable(string title)
+        private static async void SaveWildHorseInStable(string title)
         {
-            var playerId = API.GetPlayerIndex();
-            var playerPed = API.GetPlayerPed(playerId);
+            var playerPed = API.GetPlayerPed(API.GetPlayerIndex());
             var horseEntity = API.GetMount(playerPed);
             var horsePed = API.GetEntityModel(horseEntity);
             var horseModelString = "nothing";
@@ -127,6 +145,8 @@ namespace VORP.Stables.Client.Menus
                 "A_C_HorseMule_01",
                 "A_C_Donkey_01"
             };
+            
+            //ToDo try to avoid theft
 
             foreach (var pedString in pedList.Where(pedString =>
                 API.GetHashKey(pedString.ToUpper()).Equals(horsePed)))
@@ -135,12 +155,13 @@ namespace VORP.Stables.Client.Menus
             }
 
             await DeleteHorse(horseEntity);
-            
+
             StablesShop.horsecost = 0.00;
             StablesShop.horsemodel = horseModelString;
-            await StablesShop.ConfirmBuyHorse(title);
+            await StablesShop.ConfirmBuyHorse(GetConfig.Langs["ButtonNameStableWildHorse"],
+                GetConfig.Langs["InputPlaceHolderStableWildHorse"], title);
         }
-        
+
         private static async Task DeleteHorse(int horsePed)
         {
             var timeout = 0;
@@ -166,6 +187,12 @@ namespace VORP.Stables.Client.Menus
                     Debug.WriteLine("Horse can't despawn");
                 }
             }
+        }
+
+        public static Menu GetMenu()
+        {
+            SetupMenu();
+            return stableWildHorse;
         }
     }
 }

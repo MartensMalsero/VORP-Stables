@@ -292,7 +292,7 @@ namespace VORP.Stables.Client
             }
         }
 
-        public static async Task ConfirmBuyHorse(string tittle)
+        public static async Task ConfirmBuyHorse(string buttonName, string inputPlaceHolder, string title)
         {
             MenuController.CloseAllMenus();
 
@@ -302,7 +302,9 @@ namespace VORP.Stables.Client
             }
             else
             {
-                TriggerEvent("vorpinputs:getInput", GetConfig.Langs["InputNameButton"], GetConfig.Langs["InputNamePlaceholder"], new Action<dynamic>(async (cb) =>
+                //TriggerEvent("vorpinputs:getInput", GetConfig.Langs["InputNameButton"], GetConfig.Langs["InputNamePlaceholder"], new Action<dynamic>(async (cb) =>
+                TriggerEvent("vorpinputs:getInput", buttonName, inputPlaceHolder, new 
+                Action<dynamic>(async (cb) =>
                 {
                     string horseName = cb;
 
@@ -311,13 +313,13 @@ namespace VORP.Stables.Client
                     if (horseName.Length < 3)
                     {
 
-                        TriggerEvent("vorp:TipRight", "~e~" + GetConfig.Langs["PlaceHolderInputName"], 3000); // from client side
-                        ConfirmBuyHorse(tittle);
+                        TriggerEvent("vorp:TipRight", "~e~" + inputPlaceHolder, 3000); // from client side
+                        ConfirmBuyHorse(buttonName, inputPlaceHolder, title);
                     }
                     else
                     {
                         if (horseName.Equals("close")) return;
-                        TriggerServerEvent("vorpstables:BuyNewHorse", horseName, tittle, horsemodel, horsecost);
+                        TriggerServerEvent("vorpstables:BuyNewHorse", horseName, title, horsemodel, horsecost);
                         HorseManagment.isLoading = true;
                     }
                 }));

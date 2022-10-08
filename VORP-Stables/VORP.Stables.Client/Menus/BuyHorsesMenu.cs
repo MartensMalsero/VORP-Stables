@@ -8,21 +8,25 @@ namespace VORP.Stables.Client.Menus
 {
     class BuyHorsesMenu
     {
-        private static Menu buyHorsesMenu = new Menu(GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+        private static Menu buyHorsesMenu =
+            new Menu(GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+
         private static Menu subMenuConfirmBuy = new Menu(GetConfig.Langs["SubMenuConfirmBuy"], "");
         private static bool setupDone = false;
+
         private static void SetupMenu()
         {
             if (setupDone) return;
             setupDone = true;
 
-            
+
             MenuController.AddMenu(buyHorsesMenu);
 
             MenuController.EnableMenuToggleKeyOnController = false;
-            MenuController.MenuToggleKey = (Control)0;
+            MenuController.MenuToggleKey = (Control) 0;
 
             #region MenuConfirm
+
             MenuController.AddSubmenu(buyHorsesMenu, subMenuConfirmBuy);
 
             MenuItem buttonConfirmYes = new MenuItem("", GetConfig.Langs["ConfirmBuyButtonDesc"])
@@ -30,11 +34,13 @@ namespace VORP.Stables.Client.Menus
                 RightIcon = MenuItem.Icon.SADDLE
             };
             subMenuConfirmBuy.AddMenuItem(buttonConfirmYes);
-            MenuItem buttonConfirmNo = new MenuItem(GetConfig.Langs["CancelBuyButton"], GetConfig.Langs["CancelBuyButtonDesc"])
-            {
-                RightIcon = MenuItem.Icon.ARROW_LEFT
-            };
+            MenuItem buttonConfirmNo =
+                new MenuItem(GetConfig.Langs["CancelBuyButton"], GetConfig.Langs["CancelBuyButtonDesc"])
+                {
+                    RightIcon = MenuItem.Icon.ARROW_LEFT
+                };
             subMenuConfirmBuy.AddMenuItem(buttonConfirmNo);
+
             #endregion
 
             foreach (var cat in GetConfig.HorseLists)
@@ -63,10 +69,7 @@ namespace VORP.Stables.Client.Menus
                 StablesShop.LoadHorsePreview(0, 0, StablesShop.HorsePed);
             };
 
-            buyHorsesMenu.OnMenuClose += (_menu) =>
-            {
-                StablesShop.ExitBuyHorseMode();
-            };
+            buyHorsesMenu.OnMenuClose += (_menu) => { StablesShop.ExitBuyHorseMode(); };
 
             subMenuConfirmBuy.OnItemSelect += async (_menu, _item, _index) =>
             {
@@ -74,13 +77,13 @@ namespace VORP.Stables.Client.Menus
 
                 if (_index == 0)
                 {
-                    StablesShop.ConfirmBuyHorse(subMenuConfirmBuy.MenuTitle);
+                    StablesShop.ConfirmBuyHorse(GetConfig.Langs["InputNameButton"],
+                        GetConfig.Langs["InputNamePlaceholder"], subMenuConfirmBuy.MenuTitle);
                 }
                 else
                 {
                     subMenuConfirmBuy.CloseMenu();
                 }
-
             };
 
             buyHorsesMenu.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
@@ -89,8 +92,11 @@ namespace VORP.Stables.Client.Menus
                 StablesShop.iIndex = _itemIndex;
                 StablesShop.lIndex = _listIndex;
                 subMenuConfirmBuy.MenuTitle = $"{GetConfig.HorseLists.ElementAt(_itemIndex).Key}";
-                subMenuConfirmBuy.MenuSubtitle = string.Format(GetConfig.Langs["subTitleConfirmBuy"], GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key], GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
-                buttonConfirmYes.Label = string.Format(GetConfig.Langs["ConfirmBuyButton"], GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
+                subMenuConfirmBuy.MenuSubtitle = string.Format(GetConfig.Langs["subTitleConfirmBuy"],
+                    GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key],
+                    GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
+                buttonConfirmYes.Label = string.Format(GetConfig.Langs["ConfirmBuyButton"],
+                    GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
 
                 StablesShop.horsecost = GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value;
                 StablesShop.horsemodel = GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key;
@@ -99,7 +105,7 @@ namespace VORP.Stables.Client.Menus
             buyHorsesMenu.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
             {
                 Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
-                MenuListItem itemlist = (MenuListItem)_newItem;
+                MenuListItem itemlist = (MenuListItem) _newItem;
                 Debug.WriteLine(itemlist.ListIndex.ToString());
                 if (StablesShop.horseIsLoaded)
                 {
@@ -123,6 +129,5 @@ namespace VORP.Stables.Client.Menus
             SetupMenu();
             return buyHorsesMenu;
         }
-
     }
 }

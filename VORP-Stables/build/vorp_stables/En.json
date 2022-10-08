@@ -23,6 +23,9 @@
     
     "TitleStableWildHorse": "Stable Wild Horse",
     "DescStableWildHorse": "",
+    "ButtonNameStableWildHorse": "Bring your horse in",
+    "InputPlaceHolderStableWildHorse": "The name of your horse",
+    "StableIsFullWildHorse": "Your stable is full, you can not bring your horse in until you have a free slot",
 
     "subTitleConfirmBuy": "The price of {0} is {1}$",
     "ConfirmBuyButton": "Buy for {0}$",

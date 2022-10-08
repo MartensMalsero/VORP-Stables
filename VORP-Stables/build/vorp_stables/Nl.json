@@ -21,6 +21,12 @@
   "TitleMenuCarts": "Wagens organiseren",
   "SubTitleMenuCarts": "Jouw wagens",
 
+  "TitleStableWildHorse": "Stal Wild Paard",
+  "DescStableWildHorse": "",
+  "ButtonNameStableWildHorse": "Breng uw paard binnen",
+  "InputPlaceHolderStableWildHorse": "De naam van uw paard",
+  "StableIsFullWildHorse": "Uw stal is vol, u kunt uw paard niet binnenbrengen totdat u een vrije plaats heeft",
+
   "subTitleConfirmBuy": "De prijs van {0} is {1}$",
   "ConfirmBuyButton": "Koop voor {0}$",
   "ConfirmBuyButtonDesc": "Koop paard",
